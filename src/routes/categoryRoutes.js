@@ -5,6 +5,7 @@ const categoryController = require('../controllers/categoryController');
 const validateJWT = require('../auth/validateJWT');
 const { createCategoryValidation } = require('../middlewares/createCategoryValidation');
 
+router.get('/', validateJWT, categoryController.findAll);
 router.post('/', validateJWT, createCategoryValidation, categoryController.create);
 
 module.exports = router;

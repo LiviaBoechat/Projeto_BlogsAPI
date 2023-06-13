@@ -1,14 +1,14 @@
 const categoryService = require('../services/categoryService');
 
-// const findAll = async (_req, res) => {
-//     try {
-//       const { type, message } = await categoryService.findAll();
+const findAll = async (_req, res) => {
+    try {
+      const { message } = await categoryService.findAll();
        
-//       return res.status(type).json(message);
-//     } catch (error) {
-//       res.status(500).json({ message: 'Algo deu errado' });
-//     }
-//   };
+      return res.status(200).json(message);
+    } catch (error) {
+      res.status(500).json({ message: 'Algo deu errado' });
+    }
+};
 
 // const findByPk = async (req, res) => {
 //   try {
@@ -38,7 +38,7 @@ const create = async (req, res) => {
 };
 
 module.exports = {
-//   findAll,
+  findAll,
 //   findByPk,
   create,
 
