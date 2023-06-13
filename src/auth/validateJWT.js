@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    console.log(decoded);
+ 
     const user = await userService.findByPk(decoded.data.userId);
 
     if (!user) {
@@ -24,7 +24,6 @@ module.exports = async (req, res, next) => {
    
     next();
   } catch (err) {
-    console.log(err);
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
