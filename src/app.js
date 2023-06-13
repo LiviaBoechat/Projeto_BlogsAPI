@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express();
 
-const { loginRouter } = require('./routes');
+const { loginRouter, userRouter } = require('./routes');
 
 // não remova ou mova esse endpoint
 app.get('/', (_request, response) => {
@@ -11,6 +11,7 @@ app.get('/', (_request, response) => {
 
 app.use(express.json());
 app.use('/login', loginRouter);
+app.use('/user', userRouter);
 // ...
 
 // É importante exportar a constante `app`,
