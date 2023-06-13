@@ -7,6 +7,8 @@ const signIn = async (req, res) => {
     const { type, message } = await loginService.signIn(email, password);
    
     if (type) return res.status(type).json({ message });
+
+    // cria novo token com id do user cadastrado no banco
     const token = jwtUtils.newToken(message.id); 
 
     return res.status(200).json({ token });

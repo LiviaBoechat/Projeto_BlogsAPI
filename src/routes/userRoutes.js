@@ -2,8 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 const userController = require('../controllers/userController');
-const { validatePostUser } = require('../middlewares/createUserValidation')
+const { createUserValidation } = require('../middlewares/createUserValidation')
+const validateJWT = require('../auth/validateJWT')
 
-router.post('/', validatePostUser, userController.create);
+
+router.get('/',  validateJWT, userController.findAll);
+router.post('/', createUserValidation, userController.create);
 
 module.exports = router;

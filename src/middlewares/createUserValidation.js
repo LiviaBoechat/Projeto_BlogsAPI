@@ -1,4 +1,4 @@
-const validatePostUser = (req, res, next) => {
+const createUserValidation = (req, res, next) => {
     const { email, password, displayName, image } = req.body;
     
     if (displayName.length < 8) {
@@ -17,8 +17,7 @@ const validatePostUser = (req, res, next) => {
     next();
   };
   
-  
   module.exports = {
-    validatePostUser,
+    createUserValidation,
   };
   
