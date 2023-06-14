@@ -10,19 +10,6 @@ const findAll = async (_req, res) => {
     }
 };
 
-// const findByPk = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { type, message } = await categoryService.findByPk(id);
-
-//     if (type) return res.status(404).json({ message: 'User does not exist' });
-
-//     return res.status(200).json(message);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Algo deu errado' });
-//   }
-// };
-
 const create = async (req, res) => {
   try {
     const { name } = req.body;
@@ -39,7 +26,5 @@ const create = async (req, res) => {
 
 module.exports = {
   findAll,
-//   findByPk,
   create,
-
 };

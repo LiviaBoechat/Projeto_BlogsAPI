@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
  
     const user = await userService.findByPk(decoded.data.userId);
-
+  
     if (!user) {
       return res.status(401).json({ message: 'Erro ao procurar usuário do token.' });
     }

@@ -16,9 +16,11 @@ module.exports = (sequelize, DataTypes) => {
           },
           published: {
             type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
           },
           updated: {
             type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
           },
     },
     {
@@ -31,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     BlogPost.associate = (models) => {
         BlogPost.belongsTo(models.User, {
           as: 'users',
-          foreignKey: 'user_id',
+          foreignKey: 'userId',
         });    
     }
   

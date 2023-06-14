@@ -6,17 +6,15 @@ const findAll = async () => {
   return { type: 200, message: categories };
 };
 
-// const findByPk = async (id) => {
-//   const user = await Category.findByPk(id, {
-//     attributes: { exclude: ['password'] },
-// });
+const findByPk = async (id) => {
+  const category = await Category.findByPk(id);
 
-//   if (!user || user === null) {
-//     return { type: 404, message: 'User does not exist' };
-//   } 
+  if (!category || category === null) {
+    return { type: 404, message: 'User does not exist' };
+  } 
 
-//   return { type: null, message: user };
-// }; 
+  return { type: null, message: category };
+}; 
 
 const create = async (name) => {
    const newCategory = await Category.create({ name });
@@ -25,6 +23,6 @@ const create = async (name) => {
 
 module.exports = {
   findAll,
-//   findByPk,
+    findByPk,
     create,
 };
