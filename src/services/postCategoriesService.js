@@ -1,13 +1,14 @@
 const { PostCategory } = require('../models');
 
 const insert = async (postId, categoryIds) => {
-    const map = categoryIds.map((eachCategory) => ({ 
+    // objectsArray será um array de objetos que associa o postId, CRIADO no BlogPostService, a cada categoryId recebido por REQ
+    const objectsArray = categoryIds.map((eachCategory) => ({ 
         postId,
         categoryId: eachCategory,
     }));
-    console.log(map);
-   const newCategory = await PostCategory.bulkCreate(map);
-  return { type: null, message: newCategory };
+
+   const newCategory = await PostCategory.bulkCreate(objectsArray);
+   return { type: null, message: newCategory };
 };
 
 module.exports = {
