@@ -3,7 +3,7 @@ const { User } = require('../models');
 const { Category } = require('../models');
 const { insert } = require('./postCategoriesService');
 const { categoriesExist } = require('./validations/categoryValidation');
-
+//
 const findAll = async () => {
   const allPosts = await BlogPost.findAll({
     attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
