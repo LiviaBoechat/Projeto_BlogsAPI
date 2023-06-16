@@ -1,9 +1,10 @@
+const { Op } = require('sequelize');
 const { BlogPost } = require('../models');
 const { User } = require('../models');
 const { Category } = require('../models');
 const { insert } = require('./postCategoriesService');
 const { categoriesExist } = require('./validations/categoryValidation');
-//
+
 const findAll = async () => {
   const allPosts = await BlogPost.findAll({
     attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
@@ -24,7 +25,7 @@ const findByPk = async (id) => {
       include: [
           { model: User,
             as: 'user',
-              attributes: { exclude: ['password'] },
+            attributes: { exclude: ['password'] },
           },
           { model: Category, as: 'categories', through: { attributes: [] } },
       ],
@@ -48,8 +49,23 @@ const create = async (userId, title, content, categoryIds) => {
    return { type: null, message: newPost };
 };
 
+const update = async (id, userId, title, content) => {
+  const [updatedPost] = await BlogPost.update(
+    { title, content },
+    { where: {
+      [Op.and]: [{ userId }, { id }],
+    } },
+  );
+  
+  if (!updatedPost) return { type: 401, message: 'Unauthorized user' };
+  const { message } = await findByPk(id);
+  
+  return { type: null, message };
+};
+
 module.exports = {
   findAll,
   findByPk,
   create,
+  update,
 };
