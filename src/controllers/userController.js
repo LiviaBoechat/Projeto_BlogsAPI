@@ -7,7 +7,7 @@ const findAll = async (_req, res) => {
        
       return res.status(type).json(message);
     } catch (error) {
-      res.status(500).json({ message: 'Algo deu errado' });
+      res.status(500).json(error);
     }
   };
 
@@ -20,7 +20,7 @@ const findByPk = async (req, res) => {
 
     return res.status(200).json(message);
   } catch (error) {
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json(error);
   }
 };
 
@@ -36,13 +36,28 @@ const create = async (req, res) => {
 
     return res.status(201).json({ token });
   } catch (error) {
-    res.status(500).json({ message: 'Algo deu errado' });
+    res.status(500).json(error);
   }
+};
+
+const destroy = async (req, res) => {
+  const { userId } = req.user.data;
+  
+try {
+  const { type, message } = await userService.destroy(userId);
+
+  if (type) return res.status(type).json({ message }); 
+
+  return res.status(204).json('');
+} catch (error) {
+  console.log(error);
+  res.status(500).json(error);
+}
 };
 
 module.exports = {
   findAll,
   findByPk,
   create,
-
+  destroy,
 };

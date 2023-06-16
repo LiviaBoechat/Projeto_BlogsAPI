@@ -31,8 +31,18 @@ const create = async (email, password, displayName, image) => {
   return { type: 409, message: 'User already registered' };
 };
 
+const destroy = async (userId) => {
+  const { type } = await findByPk(userId);
+  if (type) return { type: 404, message: 'User does not exist' };
+  
+  await User.destroy({ where: { id: userId } });
+
+  return { type: null };
+};
+
 module.exports = {
   findAll,
   findByPk,
     create,
+    destroy,
 };
