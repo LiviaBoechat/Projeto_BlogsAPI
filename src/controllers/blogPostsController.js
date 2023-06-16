@@ -23,6 +23,15 @@ const findByPk = async (req, res) => {
   }
 };
 
+const findByQuery = async (req, res) => {
+  const { q } = req.query;
+  const { type, message } = await blogPostsService.findByQuery(q);
+
+  if (type) return res.status(200).json([]);
+
+  res.status(200).json(message);
+};
+
 const create = async (req, res) => {
   const { userId } = req.user.data;
   try {
@@ -73,6 +82,7 @@ try {
 module.exports = {
   findByPk,
   findAll,
+  findByQuery,
   create,
   update,
   destroy,

@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost } = require('../models');
 const { User } = require('../models');
 const { Category } = require('../models');
@@ -33,6 +34,26 @@ const findByPk = async (id) => {
   if (!post) return { type: 404, message: 'Post does not exist' };
    
   return { type: null, message: post };
+};
+
+const findByQuery = async (query) => {
+  const result = await BlogPost.findAll({ 
+    where: { 
+      [Op.or]: {
+        title: { [Op.like]: [`%${query}%`] },
+        content: { [Op.like]: [`%${query}%`] },
+      },   
+  },
+  include: [
+    { model: User,
+      as: 'user',
+      attributes: { exclude: ['password'] },
+    },
+    { model: Category, as: 'categories', through: { attributes: [] } },
+], 
+});
+  if (!result) return { type: 200, message: [] };
+  return { type: null, message: result };
 };
 
 const create = async (userId, title, content, categoryIds) => {
@@ -81,4 +102,20 @@ module.exports = {
   create,
   update,
   destroy,
+  findByQuery,
 };
+
+// const findByQuery = async (query) => {
+//   if (!query || query === undefined) {
+//   const user = await User.findOne({ where: { 
+//     [Op.Like]: [`%${query}%`],
+//   } });
+//   const allPosts = await BlogPost.findAll();  
+//       return { type: null, message: allPosts };
+//   }
+
+//   const result = await BlogPost.findByAll(query); 
+//   if (!result) return { type: 200, message: [] };
+
+//   return { type: null, message: result };
+// };

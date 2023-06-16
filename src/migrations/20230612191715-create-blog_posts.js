@@ -36,10 +36,6 @@ module.exports = {
         type: Sequelize.DATE,
       },
     },
-    {
-      timestamps: false,
-      underscored: true,
-    },
     );
   },
 

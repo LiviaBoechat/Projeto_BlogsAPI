@@ -26,10 +26,7 @@ module.exports = {
         primaryKey: true,
       },
     },
-    {
-      timestamps: false,
-      underscored: true,
-    },
+  
     );
   },
 
