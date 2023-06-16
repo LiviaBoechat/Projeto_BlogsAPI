@@ -7,7 +7,7 @@ const jwtConfig = {
     algorithm: 'HS256',
   };
 
-  // cria novos tokens semopre que chamado
+  // gera de novos tokens sempre que chamado
 const newToken = (id) => jwt.sign({ data: { userId: id } }, secret, jwtConfig);
 
 module.exports = { newToken };

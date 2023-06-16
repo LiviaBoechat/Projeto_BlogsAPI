@@ -51,7 +51,7 @@ const create = async (userId, title, content, categoryIds) => {
 const update = async (id, userId, title, content) => {
   const [updatedPost] = await BlogPost.update(
     { title, content },
-    // id (post) e userId(vem do token) precisam ser iguais p/ certificar que é msm a pessoa
+    // id (post) e userId(vem do token) precisam ser iguais aos do banco p/ certificar que é msm a pessoa
     { where: { userId, id } },
   );
   
@@ -61,9 +61,24 @@ const update = async (id, userId, title, content) => {
   return { type: null, message };
 };
 
+const destroy = async (id, userId) => {
+  const { type } = await findByPk(id);
+  if (type) return { type: 404, message: 'Post does not exist' };
+  
+  const deletedPost = await BlogPost.destroy(
+    // id (post) e userId(vem do token) precisam ser iguais aos do banco p/ certificar que é msm a pessoa
+    { where: { userId, id } },
+  );
+
+  if (!deletedPost) return { type: 401, message: 'Unauthorized user' };
+  
+  return { type: null };
+};
+
 module.exports = {
   findAll,
   findByPk,
   create,
   update,
+  destroy,
 };

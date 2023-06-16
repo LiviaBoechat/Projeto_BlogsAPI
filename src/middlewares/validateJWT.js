@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, secret);
    
-    // guarda info. do usuario no req.user
+    // guarda info. do usuario que gerou o token no req.user
     req.user = decoded;
    
     next();

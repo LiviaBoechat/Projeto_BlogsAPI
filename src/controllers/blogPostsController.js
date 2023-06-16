@@ -54,9 +54,26 @@ try {
 }
 };
 
+const destroy = async (req, res) => {
+  const { userId } = req.user.data;
+  const { id } = req.params;
+  
+try {
+  const { type, message } = await blogPostsService.destroy(id, userId);
+
+  if (type) return res.status(type).json({ message }); 
+
+  return res.status(204).json('');
+} catch (error) {
+  console.log(error);
+  res.status(500).json(error);
+}
+};
+
 module.exports = {
   findByPk,
   findAll,
   create,
   update,
+  destroy,
 };
