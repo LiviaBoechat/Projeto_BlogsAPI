@@ -24,7 +24,7 @@ const findByPk = async (req, res) => {
 };
 
 const create = async (req, res) => {
-    const userId = req.user.message.dataValues.id;
+  const { userId } = req.user.data;
   try {
     const { title, content, categoryIds } = req.body;
     const { type, message } = await blogPostsService.create(userId, title, content, categoryIds);
