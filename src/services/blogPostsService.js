@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const { BlogPost } = require('../models');
 const { User } = require('../models');
 const { Category } = require('../models');
@@ -52,9 +51,8 @@ const create = async (userId, title, content, categoryIds) => {
 const update = async (id, userId, title, content) => {
   const [updatedPost] = await BlogPost.update(
     { title, content },
-    { where: {
-      [Op.and]: [{ userId }, { id }],
-    } },
+    // id (post) e userId(vem do token) precisam ser iguais p/ certificar que é msm a pessoa
+    { where: { userId, id } },
   );
   
   if (!updatedPost) return { type: 401, message: 'Unauthorized user' };
