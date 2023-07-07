@@ -12,4 +12,4 @@ const createCategoryValidation = (req, res, next) => {
   
   module.exports = {
     createCategoryValidation,
-  };
+  }; //
